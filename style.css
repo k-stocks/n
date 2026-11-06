@@ -1,0 +1,105 @@
+:root{color-scheme:light;--bg:#f3f5f9;--surface:#fff;--ink:#172033;--muted:#788397;--line:#e7ebf1;--blue:#3978d8;--red:#df535b;--green:#16865c;--shadow:0 8px 28px rgba(26,42,68,.055)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;font-size:14px;line-height:1.55}.app{max-width:1120px;margin:auto;padding:0 26px}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:11px;color:inherit;text-decoration:none}.brand-mark{width:37px;height:37px;border-radius:12px;background:#172b48;color:#fff;display:grid;place-items:center;font-weight:900;font-size:19px}.brand b{display:block;font-size:16px;letter-spacing:-.4px}.brand small{display:block;font-size:9px;letter-spacing:1.4px;color:#8a95a7;font-weight:800}.top-actions{display:flex;align-items:center;gap:13px}.updated,.muted{font-size:11px;color:var(--muted)}button{font:inherit;cursor:pointer}.icon-btn{border:1px solid var(--line);background:#fff;border-radius:10px;width:36px;height:36px;font-size:21px;color:#40516a}.hero{padding:35px 0 27px;display:flex;justify-content:space-between;align-items:flex-end}.eyebrow{font-size:9px;letter-spacing:1.5px;font-weight:850;color:#8290a5}.hero h1{font-size:31px;line-height:1.2;letter-spacing:-1.4px;margin:9px 0}.hero h1 em{font-style:normal;color:#3978d8}.hero p{color:#7b8799;margin:10px 0 0;font-size:12px}.hero-date{text-align:right;padding-bottom:4px}.hero-date span,.hero-date small{display:block;color:#98a2b1;font-size:9px;letter-spacing:1px}.hero-date b{display:block;font-size:19px;margin:4px 0}.card{background:var(--surface);border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow)}.briefing{padding:22px 23px;margin-bottom:30px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:15px}.section-head h2{font-size:19px;letter-spacing:-.6px;margin:3px 0 0}.status-pill,.count-badge{font-size:10px;padding:5px 10px;border-radius:20px;background:#eef3fb;color:#5576a7;white-space:nowrap}.briefing-summary{font-size:14px;line-height:1.8;margin:16px 0;color:#354258}.brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.brief-column{padding:13px 15px;border-radius:12px;background:#f6faf8}.brief-column.negative{background:#fff7f7}.brief-column b{font-size:12px}.brief-column b i{font-style:normal;font-size:15px;margin-right:4px;color:var(--green)}.negative b i{color:var(--red)}.brief-column ul{padding-left:17px;margin:8px 0 0;color:#68758a;font-size:11px}.brief-column li+li{margin-top:4px}.brief-bottom{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:12px;margin-top:15px;font-size:10px;color:#8490a1}.category-section{margin-bottom:29px}.category-nav{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:15px 0 18px}.category{background:#fff;border:1px solid var(--line);border-radius:12px;text-align:left;padding:12px 11px;color:#59677c;min-height:67px}.category b,.category small{display:block}.category b{font-size:11px;letter-spacing:-.3px}.category small{font-size:8px;letter-spacing:1px;color:#a0aaba;margin-top:4px}.category.active{border-color:#8fb2ed;background:#edf4ff;color:#245ca9;box-shadow:0 3px 12px #3978d81a}.news-toolbar{display:flex;align-items:center;gap:9px;padding:0 2px 9px;border-bottom:1px solid var(--line)}.news-toolbar b{font-size:13px}.news-list{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}.news-item{padding:15px 3px 14px;border-bottom:1px solid var(--line);min-width:0}.news-meta{display:flex;align-items:center;gap:7px;font-size:9px;color:#98a3b2}.tag{padding:2px 6px;border-radius:5px;background:#f0f3f8;color:#62728a;font-weight:750}.impact{font-weight:800}.impact.positive{color:var(--red)}.impact.negative{color:#3978d8}.impact.neutral{color:#8a94a3}.news-item h3{font-size:13px;line-height:1.5;margin:7px 0 5px;letter-spacing:-.25px}.news-item p{font-size:11px;color:#758196;margin:0;line-height:1.65}.news-foot{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:9px;color:#9aa4b2}.news-foot a{color:#537bb5;text-decoration:none;font-weight:700}.more-btn{display:block;margin:15px auto 0;border:1px solid var(--line);background:#fff;color:#68778d;padding:9px 24px;border-radius:20px;font-size:11px}.issues-section{padding:21px 22px;margin:28px 0}.section-desc{font-size:11px;color:#8792a3;margin:5px 0 0}.issue-filters{display:flex;gap:6px;margin:17px 0 8px}.issue-filter{border:1px solid var(--line);background:#fff;border-radius:20px;padding:5px 12px;font-size:10px;color:#7a8798}.issue-filter.active{background:#243b5b;color:#fff;border-color:#243b5b}.issue-card{padding:14px 2px;border-bottom:1px solid var(--line)}.issue-card:last-child{border-bottom:0}.issue-top{display:flex;justify-content:space-between;gap:10px}.issue-top h3{font-size:13px;margin:0;letter-spacing:-.3px}.issue-state{font-size:9px;white-space:nowrap;border-radius:20px;padding:3px 8px;background:#fff4e8;color:#b9792d;height:max-content}.issue-state.long{background:#edf3ff;color:#4773b5}.issue-card p{font-size:11px;color:#748196;margin:6px 0}.issue-details{display:flex;gap:12px;flex-wrap:wrap;font-size:9px;color:#98a2b1}.issue-details strong{color:#69788e}.archive-section{margin:28px 0 35px}.text-btn{border:0;background:transparent;color:#6d7e95;font-size:11px}.archive-list{background:#fff;border:1px solid var(--line);border-radius:12px;padding:4px 15px;margin-top:12px}.archive-item{padding:11px 0;border-bottom:1px solid var(--line)}.archive-item:last-child{border:0}.archive-item b{font-size:12px}.archive-item p{font-size:10px;color:#8994a4;margin:3px 0}.empty{padding:24px;text-align:center;color:#9aa4b2;font-size:11px;grid-column:1/-1}.skeleton{height:13px;background:linear-gradient(90deg,#f1f3f6,#e8edf3,#f1f3f6);border-radius:5px;margin:9px 0}.skeleton.short{width:60%}footer{border-top:1px solid var(--line);padding:17px 0 25px;display:flex;justify-content:space-between;gap:10px;color:#9ba5b3;font-size:9px}footer b{color:#66758b;letter-spacing:1px}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;background:#1e2d43;color:#fff;padding:10px 16px;border-radius:9px;font-size:11px;transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:760px){.app{padding:0 15px}.topbar{height:65px}.updated{font-size:9px}.hero{padding:27px 0 22px}.hero h1{font-size:27px}.hero-date b{font-size:16px}.briefing{padding:17px 15px}.brief-grid{gap:8px}.brief-column{padding:11px}.category-nav{grid-template-columns:repeat(2,1fr);gap:7px}.category{min-height:56px;padding:9px 10px}.category b{font-size:11px}.news-list{grid-template-columns:1fr}.news-item{padding:13px 2px}.issues-section{padding:17px 15px}.section-head h2{font-size:17px}footer{flex-direction:column;gap:4px}.brief-bottom{font-size:9px}.hero p{max-width:245px}}
+@media(min-width:761px) and (max-width:980px){.category-nav{grid-template-columns:repeat(3,1fr)}}
+.news-title-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.news-title-link:hover {
+  text-decoration: underline;
+}
+
+
+/* ===== 제목 영역: 종목 인사이트 화면과 동일한 흰색 바 + 녹색 막대 ===== */
+.app{padding:0}
+main{padding:0 26px}
+.topbar{height:61px;padding:0 15px;background:#ffffffed;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;gap:10px}
+.brand{gap:8px;min-width:0;flex:none}
+.brand-mark{display:block;width:4px;height:19px;border-radius:4px;background:#4ac18a;flex:none;font-size:0}
+.brand b{font-size:16px;letter-spacing:normal;white-space:nowrap}
+.brand small{font-size:8px;letter-spacing:.7px;color:#9aa3af;margin-top:2px;font-weight:600;white-space:nowrap}
+.top-actions{gap:6px;min-width:0}
+.updated{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;margin-right:4px}
+.icon-btn{flex:none;width:34px;height:34px;padding:0;border:1px solid var(--line);background:#f8f9fb;border-radius:10px;color:#657287;font-size:17px;font-weight:400;line-height:1;display:inline-flex;align-items:center;justify-content:center}
+.icon-btn:active{background:#eaf0f7}
+.icon-btn:disabled{opacity:.55}
+
+/* ===== 모바일: 줄바꿈·넘침 정리 ===== */
+body{word-break:keep-all;overflow-wrap:break-word;-webkit-text-size-adjust:100%}
+.news-item h3,.issue-top h3,.brief-column li,.briefing-summary,.news-item p,.issue-card p{word-break:keep-all;overflow-wrap:break-word}
+.news-meta{flex-wrap:wrap;row-gap:3px}.news-meta>*{white-space:nowrap}
+.news-foot{flex-wrap:wrap;gap:4px 10px}.news-foot span{min-width:0}
+.issue-top h3{min-width:0;flex:1}
+.issue-filters{overflow-x:auto;scrollbar-width:none}.issue-filters::-webkit-scrollbar{display:none}.issue-filter{white-space:nowrap;flex:none}
+.section-head>div{min-width:0}
+@media(max-width:760px){
+ main{padding:0 14px}
+ .topbar{height:61px;padding:0 12px}
+ .updated{font-size:9px;max-width:34vw}
+ .hero{display:block;padding:22px 0 18px}
+ .hero h1{font-size:25px;letter-spacing:-1px}
+ .hero p{max-width:none;font-size:12px;line-height:1.6}
+ .hero-date{display:flex;align-items:baseline;flex-wrap:wrap;gap:3px 8px;text-align:left;margin-top:12px;padding:0}
+ .hero-date span,.hero-date small{display:inline}
+ .hero-date b{display:inline;font-size:14px;margin:0}
+ .briefing{padding:16px 14px;margin-bottom:24px}
+ .brief-grid{grid-template-columns:1fr;gap:8px}
+ .brief-bottom{flex-direction:column;gap:3px;font-size:10px}
+ .section-head{flex-wrap:wrap;gap:6px 10px;align-items:flex-start}
+ .section-head>.muted{flex-basis:100%;order:3;font-size:10px}
+ .section-head h2{font-size:17px}
+ .section-desc{font-size:11px;line-height:1.55}
+ .category-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+ .category{min-height:54px;padding:9px 10px}
+ .category b{font-size:12px;line-height:1.3}
+ .news-item h3{font-size:14px}
+ .news-item p{font-size:12px}
+ .news-meta{font-size:10px}.news-foot{font-size:10px}
+ .issues-section{padding:16px 14px;margin:24px 0}
+ .issue-top{flex-direction:column;gap:6px}
+ .issue-state{align-self:flex-start}
+ .issue-card p{font-size:12px}
+ .issue-details{gap:4px 12px;font-size:10px}
+ .archive-section .section-head{align-items:center}
+ .archive-list{padding:2px 12px}
+ footer{padding:15px 0 22px;line-height:1.5}
+ .toast{max-width:calc(100vw - 32px);text-align:center}
+}
+@media(max-width:340px){.updated{display:none}}
+
+/* ===== 다크 모드 ===== */
+html.dark{color-scheme:dark;--bg:#151a22;--surface:#202733;--ink:#edf1f6;--muted:#9aa6b8;--line:#303a49;--shadow:none}
+html.dark .topbar{background:#1c232eed}
+html.dark .brand small,html.dark .hero-date span,html.dark .hero-date small{color:#8693a6}
+html.dark .icon-btn{background:#202733;color:#c3cddb}
+html.dark .icon-btn:active{background:#2a3343}
+html.dark .eyebrow{color:#8e9bb0}
+html.dark .hero h1 em{color:#6ea2ff}
+html.dark .hero p,html.dark .section-desc,html.dark .news-item p,html.dark .issue-card p,html.dark .archive-item p{color:#9aa6b8}
+html.dark .status-pill,html.dark .count-badge{background:#2a3a52;color:#9fc0f0}
+html.dark .briefing-summary{color:#d5deea}
+html.dark .brief-column{background:#1c2b27}
+html.dark .brief-column.negative{background:#2d2026}
+html.dark .brief-column ul{color:#b3bfcf}
+html.dark .brief-bottom,html.dark .news-meta,html.dark .news-foot,html.dark .issue-details{color:#8f9db0}
+html.dark .issue-details strong{color:#b3bfcf}
+html.dark .category{background:#202733;color:#aab5c5}
+html.dark .category small{color:#7f8ca0}
+html.dark .category.active{background:#2a3a52;border-color:#3b5278;color:#cfe0f7;box-shadow:none}
+html.dark .tag{background:#2a3343;color:#b3bfcf}
+html.dark .impact.positive{color:#ff6b6b}
+html.dark .impact.negative{color:#5b9bff}
+html.dark .impact.neutral{color:#9aa6b8}
+html.dark .news-foot a{color:#8fb0d6}
+html.dark .more-btn,html.dark .issue-filter{background:#202733;color:#b3bfcf}
+html.dark .issue-filter.active{background:#38577f;border-color:#38577f;color:#fff}
+html.dark .issue-state{background:#3a2f1f;color:#e0a85a}
+html.dark .issue-state.long{background:#243249;color:#8fb0d6}
+html.dark .archive-list{background:#202733}
+html.dark .text-btn{color:#9fb0c8}
+html.dark .skeleton{background:linear-gradient(90deg,#252d3a,#2e3847,#252d3a)}
+html.dark footer,html.dark footer b{color:#8693a6}
+html.dark .toast{background:#38577f}
