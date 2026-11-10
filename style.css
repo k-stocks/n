@@ -213,3 +213,242 @@ html.dark .history-intro h2,html.dark .history-summary b{color:#edf1f6}html.dark
  .people-management-bottom{display:grid;grid-template-columns:1fr 1fr}
  .people-management-bottom button{width:100%}
 }
+
+
+/* PC 레이아웃: 인물 관리와 인물 정보 가독성 개선 */
+.person-name-line{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.person-name-line h3{white-space:nowrap}
+.person-card-top{align-items:center}
+.person-card-badges{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
+.influence-grade{font-size:9px;font-weight:850;padding:4px 7px;border-radius:6px;white-space:nowrap;background:#edf3fb;color:#4e6f9e}
+.person-sector{font-size:9px}
+.person-heading{min-width:0;flex:1}
+.person-delete-btn{flex:none}
+.person-news-more{display:block;width:100%;margin:9px 0 2px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-size:10px;font-weight:800;cursor:pointer}
+.person-news-more:hover{border-color:var(--blue);color:var(--blue)}
+.person-search-links{display:flex;align-items:center;gap:15px;flex-wrap:wrap}
+.person-search-links .person-link{margin-top:10px}
+.truth-posts{margin:0 0 14px;padding:11px 12px;background:var(--bg);border:1px solid var(--line);border-radius:10px}
+.truth-posts .person-news-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.truth-posts .person-news-head b{font-size:11px}
+.truth-post-item .person-news-copy b{-webkit-line-clamp:4}
+.people-bottom-management{align-items:center}
+.people-bottom-copy{min-width:0;flex:1}
+.people-management-bottom{display:flex;align-items:center;justify-content:flex-end;gap:10px}
+.people-manage-btn{min-width:116px;padding:11px 16px;font-size:12px;line-height:1.25;white-space:nowrap;transition:background .15s,border-color .15s,transform .15s}
+.people-manage-btn:hover{transform:translateY(-1px);border-color:#9aacc4}
+.people-manage-btn.primary:hover{background:#2d67bd}
+.people-manage-btn.danger{background:#fff7f7}
+.person-form{padding:22px}
+.person-form h3{font-size:16px}
+.person-form-grid{gap:14px}
+.person-form label{font-size:12px;font-weight:750;gap:7px}
+.person-form input,.person-form select,.person-form textarea{min-height:42px;border-radius:8px}
+@media(min-width:900px){
+ .people-bottom-management{padding:20px 22px}
+ .people-management-bottom{gap:12px}
+ .person-card{padding:17px}
+}
+@media(max-width:680px){
+ .person-name-line{align-items:flex-start;gap:6px}
+ .person-card-badges{flex-wrap:wrap}
+ .people-management-bottom{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .people-manage-btn{min-width:0;width:100%;padding:10px 8px;font-size:11px}
+ .person-search-links{gap:4px 12px}
+}
+html.dark .truth-posts{background:#202733;border-color:#303a49}
+html.dark .person-news-more{background:#202733;color:#e7edf6}
+html.dark .people-manage-btn.danger{background:#38272b}
+
+/* 인물명 옆의 분야·영향력 배지를 작고 간결한 한 줄로 표시 */
+.person-name-line{display:flex;align-items:center;gap:7px;flex-wrap:nowrap;min-width:0}
+.person-name-line h3{font-size:15px;line-height:1.25;margin:0;flex:none}
+.person-card-badges{display:inline-flex;flex-direction:row;align-items:center;gap:4px;flex-wrap:nowrap;min-width:0}
+.person-sector,.influence-grade{display:inline-flex;align-items:center;font-size:8px;line-height:1.2;font-weight:800;padding:3px 5px;border-radius:5px;white-space:nowrap}
+.person-sector{background:#eef1f5;color:#687386}
+.influence-grade.grade-S{background:#fde7e9;color:#b42332}
+.influence-grade.grade-A{background:#fff0d9;color:#a85b08}
+.influence-grade.grade-B{background:#e5efff;color:#315fa8}
+html.dark .person-sector{background:#303846;color:#c2ccda}
+html.dark .influence-grade.grade-S{background:#512b34;color:#ffadb5}
+html.dark .influence-grade.grade-A{background:#4b3924;color:#ffd08a}
+html.dark .influence-grade.grade-B{background:#293e5c;color:#a9c8ff}
+.truth-posts{margin:11px 0 0}
+@media(max-width:680px){.person-name-line{gap:5px}.person-name-line h3{font-size:14px}.person-sector,.influence-grade{font-size:8px;padding:3px 4px}}
+
+/* 삭제 인물 보관함 및 PC 드래그 정렬 */
+.deleted-people-panel{margin:14px 0 20px;padding:17px 18px}
+.deleted-people-heading h3{margin:0 0 3px;font-size:14px}.deleted-people-heading p,.deleted-person-info small{margin:0;color:var(--muted);font-size:11px}
+.deleted-people-list{margin-top:12px}.deleted-person-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+.deleted-person-info{display:flex;flex-direction:column;gap:3px;min-width:0}.deleted-person-info b{font-size:12px}.deleted-person-actions{display:flex;gap:7px;flex:none}
+.deleted-person-actions button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:7px;padding:7px 11px;font-size:11px;font-weight:750}
+.deleted-person-actions button.permanent{color:#bd454c;border-color:#e5a4a8;background:#fff7f7}.deleted-empty{margin:0;color:var(--muted);font-size:11px;padding:9px 0}
+@media(min-width:900px){.person-card[draggable="true"]{cursor:grab}.person-card.dragging{opacity:.42;border:1px dashed var(--blue)}}
+@media(max-width:620px){.deleted-person-row{align-items:flex-start;flex-direction:column}.deleted-person-actions{width:100%}.deleted-person-actions button{flex:1}}
+html.dark .deleted-person-actions button{background:#202733;color:#e7edf6}html.dark .deleted-person-actions button.permanent{background:#38272b;color:#ffb2b8}
+
+/* Trump’s Truth compact linked brand mark */
+.truth-posts .truth-posts-head{min-height:38px}
+.truth-posts .truth-brand-link{display:inline-flex;align-items:center;max-width:124px;min-width:0}
+.truth-posts .truth-brand-link img{display:block;width:112px;max-width:100%;height:25px;object-fit:contain;object-position:left center}
+.truth-posts .truth-posts-head>span{font-size:9px;color:var(--muted);white-space:nowrap}
+
+/* 앱 내부 뉴스 전체 보기 */
+.person-news-expand{border:0;background:transparent;color:var(--blue);font-size:9px;font-weight:800;cursor:pointer;padding:3px 5px;margin-left:auto}
+.person-news-head .person-news-expand + span{margin-left:6px}
+
+/* 최근 기사 검색 링크와 펼침 버튼을 항상 노출 */
+.person-news-head{gap:8px;flex-wrap:wrap}
+.person-news-actions{display:inline-flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.person-news-search-link{display:inline-flex;align-items:center;color:var(--blue);font-size:9px;font-weight:850;text-decoration:none;white-space:nowrap}
+.person-news-search-link:hover{text-decoration:underline}
+.person-news-expand{display:inline-flex;align-items:center;white-space:nowrap}
+.person-news-more{min-height:36px}
+@media(max-width:620px){.person-news-actions{gap:6px}.person-news-head{align-items:flex-start}.person-news-head> b{padding-top:3px}}
+
+/* Global Perspective */
+.global-perspective-panel .people-intro{margin-bottom:18px}
+.global-perspective-groups{display:grid;gap:16px;margin-bottom:30px}
+.global-market-group{padding:18px 19px}
+.global-market-heading{margin-bottom:12px}
+.global-market-heading h2{font-size:19px;letter-spacing:-.5px;margin:4px 0 0}
+.global-market-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.global-news-card{min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px}
+.global-news-card .person-news-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.global-news-card .person-news-head>b{font-size:12px}
+.global-news-card .person-news-list{margin-top:8px}
+.global-news-card .person-news-item{padding:9px 0}
+.global-news-card .person-news-more{margin-top:8px}
+.history-intro.card{background:var(--surface);border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow);padding:22px 24px;margin-bottom:15px}
+.history-intro.card h2{font-size:23px;letter-spacing:-.8px;margin:5px 0 8px}
+.history-intro.card p{font-size:12px;color:var(--muted);line-height:1.8;margin:0}
+@media(max-width:680px){.global-market-group{padding:14px}.global-market-grid{grid-template-columns:1fr}.history-intro.card{padding:17px}.history-intro.card h2{font-size:20px}}
+
+
+/* 금융과 시장의 인물들: 첫 번째 탭과 같은 독립형 인물 카드로 재구성 */
+.history-content{margin:0 0 30px;overflow:visible;border:0;border-radius:0;background:transparent;color:var(--ink)}
+.history-content-body{border:0}
+.history-content .history-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.history-content .history-card{display:flex;flex-direction:column;align-items:stretch;gap:12px;min-width:0;padding:18px;background:#fff;border:1px solid #e4e8ef;border-radius:15px;box-shadow:0 3px 12px rgba(26,42,68,.045)}
+.history-content .history-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:0 0 12px;border:0;border-bottom:1px solid #e8edf4}
+.history-content .history-card-top h3{font-size:17px;line-height:1.35;margin:0 0 5px;color:#172033}
+.history-content .history-field{display:block;width:100%;padding:0 0 11px;border:0;border-radius:0;border-bottom:1px solid #edf0f5;background:transparent}
+.history-content .history-field:last-child{padding-bottom:0;border-bottom:0}
+.history-content .history-field-label{display:block;width:max-content;max-width:100%;font-size:10px;font-weight:800;letter-spacing:.03em;color:#63738b;margin:0 0 5px;padding:3px 7px;border-radius:5px;background:#f0f4f9}
+.history-content .history-field-quote .history-quote{margin:0;padding:0;background:transparent;border:0;border-radius:0;font-size:13px;line-height:1.7;color:#25334a;font-weight:600}
+.history-content .history-field-impact .history-impact{font-size:12px;line-height:1.75;color:#465168}
+.history-content .history-field-impact .history-impact b{display:none}
+.history-content .history-field-tags .history-tags{display:flex;gap:6px;flex-wrap:wrap;margin:0}
+.history-content .history-field-tags .history-tag{font-size:10px;padding:4px 8px;border-radius:6px;background:#edf2ff;color:#3853a6}
+.history-content .history-summary{margin:0 0 18px;padding:0;gap:9px}
+.history-content .history-summary>div{background:#fff;border:1px solid #e4e8ef;border-radius:11px;padding:12px 14px}
+html.dark .history-content .history-card,html.dark .history-content .history-summary>div{background:#202733;border-color:#303a49}
+html.dark .history-content .history-card-top{border-bottom-color:#303a49}
+html.dark .history-content .history-card-top h3{color:#edf1f6}
+html.dark .history-content .history-field{border-bottom-color:#303a49}
+html.dark .history-content .history-field-label{background:#303b4c;color:#b7c5d8}
+html.dark .history-content .history-field-quote .history-quote,html.dark .history-content .history-field-impact .history-impact{color:#d2d9e4}
+.global-bottom-management{margin:4px 0 28px;padding:18px}
+.global-bottom-management h3{font-size:16px;margin:0 0 5px}
+.global-bottom-management p{font-size:12px;color:var(--muted);margin:0;line-height:1.6}
+.global-management-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.global-item-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:15px;padding:14px;background:var(--bg);border:1px solid var(--line);border-radius:12px}
+.global-item-form[hidden]{display:none}
+.global-item-form label{display:flex;flex-direction:column;gap:6px;font-size:11px;font-weight:700;color:var(--muted)}
+.global-item-form input,.global-item-form select{width:100%;min-width:0;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);padding:10px;font:inherit;font-size:12px}
+.global-url-field{grid-column:1/-1}
+.global-deleted-panel{margin-top:16px;padding-top:13px;border-top:1px solid var(--line)}
+.global-deleted-panel h4{font-size:13px;margin:0 0 8px}
+.global-deleted-list{display:grid;gap:7px}
+.global-deleted-list>p{font-size:12px;color:var(--muted)}
+.global-deleted-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;font-size:12px}
+.global-item-delete{display:block;width:100%;margin-top:8px;padding:7px;border:1px solid #e1a0a0;border-radius:7px;background:#fff5f5;color:#b42318;font-size:11px;font-weight:700}
+.dark .global-item-delete{background:#3a2023;color:#ffb4b4;border-color:#75434a}
+@media(max-width:680px){
+ .history-content .history-cards{grid-template-columns:1fr}
+ .global-item-form{grid-template-columns:1fr}
+ .global-url-field{grid-column:auto}
+ .global-management-actions .people-manage-btn{flex:1}
+}
+
+
+/* 금융 인물 탭: 카드 내부를 표/열 형태로 되돌리지 않도록 고정 */
+.history-content .history-cards{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}
+.history-content .history-card{display:flex!important;flex-direction:column!important;min-width:0!important}
+.history-content .history-field{display:block!important;width:100%!important}
+.history-content .history-content-body{display:block}
+.provider-brand{display:inline-flex;align-items:center;gap:7px}
+.provider-brand img{width:18px;height:18px;object-fit:contain;border-radius:4px;background:#fff;flex:none}
+@media(max-width:700px){
+  .history-content .history-cards{grid-template-columns:1fr!important}
+  .history-content .history-card{padding:15px}
+}
+
+/* 사용자 추가 글로벌 그룹은 KOSPI/KOSDAQ과 동일한 독립 카드로 표시 */
+.global-market-group.custom-global-group{grid-column:1 / -1;margin:0}
+.global-deleted-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.global-deleted-actions{display:flex;gap:8px;align-items:center}
+.global-deleted-row .permanent-delete{border-color:#b94b54;color:#b94b54}
+.global-market-group.custom-global-group .global-market-grid{grid-template-columns:1fr}
+
+
+/* v20 layout and group management refinements */
+.history-content,
+.history-content-body,
+.history-content .history-intro,
+.history-content .history-summary,
+.history-content .history-content-body,
+.history-content .history-main,
+.history-content .history-wrap,
+.history-content .history-toolbar,
+.history-content .history-section,
+.history-content .history-cards {
+  width:100%;
+  max-width:none;
+}
+.history-content .history-wrap { margin:0; padding-left:0; padding-right:0; }
+.history-content .history-toolbar { box-sizing:border-box; }
+.global-group-delete {
+  display:inline-flex; align-items:center; justify-content:center;
+  margin:12px 0 0; padding:5px 9px; min-height:28px;
+  border:1px solid #e3a1a5; border-radius:7px;
+  background:#fff7f7; color:#b83c45;
+  font-size:11px; font-weight:700; cursor:pointer;
+}
+.global-group-delete:hover { background:#ffecec; }
+.global-item-form .people-manage-btn,
+.global-bottom-management .people-manage-btn {
+  min-height:30px; padding:6px 10px; font-size:11px;
+}
+.global-bottom-management .people-manage-btn.primary { padding:6px 11px; }
+/* v21: compact one-field group creation and paired restore/permanent-delete actions */
+.global-item-form{grid-template-columns:minmax(180px,1fr) auto;align-items:end;max-width:620px;padding:12px}
+.global-item-form .people-manage-btn{white-space:nowrap;min-width:88px}
+.global-deleted-row .people-manage-btn{min-height:28px;padding:5px 10px;font-size:11px;white-space:nowrap}
+@media(max-width:680px){.global-item-form{grid-template-columns:1fr}.global-item-form .people-manage-btn{width:max-content}}
+
+/* v22: balanced desktop add form and right-aligned restore actions */
+@media(min-width:681px){
+  .global-item-form{width:100%;max-width:none;grid-template-columns:minmax(260px,420px) auto;justify-content:start;align-items:end;}
+  .global-item-form label{width:100%;}
+  .global-item-form .people-manage-btn{justify-self:start;}
+  .global-deleted-row{justify-content:flex-start;}
+  .global-deleted-actions{margin-left:auto;justify-content:flex-end;flex:none;}
+}
+
+/* Naver search links retain the original profile-card typography */
+.history-card-top h3 a.history-person-search{color:inherit;text-decoration:none;border-bottom:1px solid transparent}
+.history-card-top h3 a.history-person-search:hover{color:#315ee8;border-bottom-color:currentColor}
+
+/* Naver-linked names retain the exact original heading appearance */
+.history-card-top h3 a.history-person-search,
+.history-card-top h3 a.history-person-search:link,
+.history-card-top h3 a.history-person-search:visited,
+.history-card-top h3 a.history-person-search:hover,
+.history-card-top h3 a.history-person-search:active,
+.history-card-top h3 a.history-person-search:focus {
+  color: inherit !important;
+  text-decoration: none !important;
+  border: 0 !important;
+  outline: none;
+}
