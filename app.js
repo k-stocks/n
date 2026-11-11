@@ -1,5 +1,5 @@
 
-const API_BASE = "https://n.hundprint.workers.dev";
+const API_BASE = "https://macro.mcraft-tiger-574.workers.dev";
 
 const CATEGORY_NAMES = {
   all: "전체 뉴스",
@@ -354,6 +354,11 @@ $("themeBtn").addEventListener("click", () => {
     {name:"숀 킴",country:"미국",role:"글로벌 금융·시장 분석가",group:"투자·자금",impact:"글로벌 금융시장과 한국 증시에 대한 해외 투자자·기관의 시각을 파악하는 참고 인물입니다.",watch:"한국 증시 전망, 외국인 수급, 글로벌 자금 흐름, 미국 금융기관의 한국 시장 분석",query:"Sean Kim global markets Korea stocks"}
   ];
 
+  const INITIAL_PEOPLE = people.map(p => ({...p}));
+  const initialKevin = INITIAL_PEOPLE.findIndex(p => p.name === "케빈 워시");
+  if (initialKevin >= 0) { const [p] = INITIAL_PEOPLE.splice(initialKevin, 1); INITIAL_PEOPLE.splice(Math.min(2, INITIAL_PEOPLE.length), 0, p); }
+  const initialUeda = INITIAL_PEOPLE.findIndex(p => p.name === "우에다 가즈오");
+  if (initialUeda >= 0) { const [p] = INITIAL_PEOPLE.splice(initialUeda, 1); INITIAL_PEOPLE.push(p); }
   const STORAGE_KEY = "marketInsightPeople_v1";
   const defaultPeople = new Set(people.map(p => p.name));
   let deletedPeople = [];
@@ -419,13 +424,14 @@ $("themeBtn").addEventListener("click", () => {
     "스탠리 드러켄밀러":"A", "빌 애크먼":"B", "데이비드 테퍼":"B", "캐시 우드":"B", "마이클 버리":"B", "하워드 막스":"A", "마크 미너비니":"A",
     "젠슨 황":"S", "샘 올트먼":"A", "사티아 나델라":"A", "순다르 피차이":"A", "마크 저커버그":"A", "일론 머스크":"S", "리사 수":"A"
   };
-  const gradeText = {S:"글로벌 핵심 변수", A:"높은 영향력", B:"분야별 영향력"};
+  const gradeText = {S:"글로벌 핵심 변수", A:"높은 영향력", B:"분야별 영향력", C:"제한적 영향력", D:"낮은 영향력"};
   const root=document.getElementById("peopleCards");
   if(!root) return;
   const form=document.getElementById("personForm");
   const addBtn=document.getElementById("addPersonBtn");
   const cancelBtn=document.getElementById("cancelPersonBtn");
   const toggleDeleteBtn=document.getElementById("toggleDeletePeopleBtn");
+  const resetPeopleBtn=document.getElementById("resetPeopleBtn");
   let deleteMode=false;
   let filter="all";
   const search=document.getElementById("peopleSearch");
@@ -464,10 +470,21 @@ $("themeBtn").addEventListener("click", () => {
     const q=(search.value||"").trim().toLowerCase();
     const rows=people.filter(p=>(filter==="all"||p.group===filter)&&(!q||[p.name,p.country,p.role,p.group,p.impact,p.watch].join(" ").toLowerCase().includes(q)));
     count.textContent=rows.length+"명";
+    const quickNav=document.getElementById("peopleQuickNav");
+    if(quickNav){
+      quickNav.innerHTML=people.map((p,i)=>`<button type="button" class="people-quick-link" data-jump-person="${esc(p.name)}">${esc(p.name)}</button>`).join("");
+      quickNav.querySelectorAll("[data-jump-person]").forEach(btn=>btn.addEventListener("click",()=>{
+        const target=[...root.querySelectorAll(".person-card")].find(card=>card.dataset.person===btn.dataset.jumpPerson);
+        if(target){target.scrollIntoView({behavior:"smooth",block:"start"});target.classList.add("person-card-highlight");window.setTimeout(()=>target.classList.remove("person-card-highlight"),1400);}
+        else { if(search) search.value=""; filter="all"; document.querySelectorAll(".people-filter").forEach(b=>b.classList.toggle("active",b.dataset.pfilter==="all")); render(); const found=[...root.querySelectorAll(".person-card")].find(card=>card.dataset.person===btn.dataset.jumpPerson); found?.scrollIntoView({behavior:"smooth",block:"start"}); }
+      }));
+    }
     root.innerHTML=rows.map(p=>{
-      const grade=influence[p.name]||"B";
+      const legacyGrade=/^[SABCD]$/.test(String(p.impact||"").trim())?String(p.impact).trim():"";
+      const grade=p.influenceGrade||legacyGrade||influence[p.name]||"B";
+      const impactText=legacyGrade?"":(p.impact||"");
       const overseasName = newsQuery(p);
-      return `<article class="person-card" data-person="${esc(p.name)}" draggable="${window.matchMedia && window.matchMedia("(min-width: 900px)").matches}"><div class="person-card-top"><div class="person-heading"><div class="person-name-line"><h3>${esc(p.name)}</h3><div class="person-card-badges"><span class="person-sector">${esc(p.group)}</span><span class="influence-grade grade-${grade}" title="${gradeText[grade]}">영향력 ${grade}</span></div></div><div class="person-meta">${esc(p.country)} · ${esc(p.role)}</div></div><button class="person-delete-btn" type="button" data-delete="${esc(p.name)}" aria-label="${esc(p.name)} 삭제">삭제</button></div><p class="person-impact">${esc(p.impact)}</p><div class="person-watch"><b>체크할 뉴스</b><br>${esc(p.watch)}</div>${p.name==="도널드 트럼프"?`<section class="truth-posts"><div class="person-news-head truth-posts-head"><a class="truth-brand-link" href="https://www.trumpstruth.org/" target="_blank" rel="noopener noreferrer" aria-label="Trump’s Truth 사이트 열기"><img src="https://www.trumpstruth.org/img/logo.svg" alt="Trump’s Truth"></a><span>최신순</span></div><div class="truth-post-list"><div class="person-news-state">최신 게시물을 불러오는 중…</div></div></section>`:""}<section class="person-news" data-query="${esc(overseasName)}" data-source="global"><div class="person-news-head"><b>최근 기사 [해외]</b><span class="person-news-actions"><a class="person-news-search-link" href="https://news.google.com/search?q=${encodeURIComponent(overseasName)}&hl=en-US&gl=US&ceid=US%3Aen" target="_blank" rel="noopener noreferrer">전체 기사 보기 ↗</a><span>최신순</span></span></div><div class="person-news-list"><div class="person-news-state">화면에 표시되면 최신 기사를 불러옵니다.</div></div><button type="button" class="person-news-more" data-news-more disabled>기사 10개 더 보기</button></section><section class="person-news" data-query="${esc(p.name)}" data-source="naver"><div class="person-news-head"><b>최근 기사 [NAVER]</b><span class="person-news-actions"><a class="person-news-search-link" href="https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(p.name)}&sort=1" target="_blank" rel="noopener noreferrer">전체 기사 보기 ↗</a><span>최신순</span></span></div><div class="person-news-list"><div class="person-news-state">화면에 표시되면 최신 기사를 불러옵니다.</div></div><button type="button" class="person-news-more" data-news-more disabled>기사 10개 더 보기</button></section></article>`;
+      return `<article class="person-card" data-person="${esc(p.name)}" draggable="${window.matchMedia && window.matchMedia("(min-width: 900px)").matches}"><div class="person-card-top"><div class="person-heading"><div class="person-name-line"><h3>${esc(p.name)}</h3><div class="person-card-badges"><span class="person-sector">${esc(p.group)}</span><span class="influence-grade grade-${grade}" title="${gradeText[grade]}">인물 영향력 ${grade}</span></div></div><div class="person-meta">${esc(p.country)} · ${esc(p.role)}</div></div><button class="person-delete-btn" type="button" data-delete="${esc(p.name)}" aria-label="${esc(p.name)} 삭제">삭제</button></div><p class="person-impact">${esc(impactText)}</p><div class="person-watch"><b>체크할 뉴스</b><br>${esc(p.watch)}</div>${p.name==="도널드 트럼프"?`<section class="truth-posts"><div class="person-news-head truth-posts-head"><a class="truth-brand-link" href="https://www.trumpstruth.org/" target="_blank" rel="noopener noreferrer" aria-label="Trump’s Truth 사이트 열기"><img src="https://www.trumpstruth.org/img/logo.svg" alt="Trump’s Truth"></a><span>최신순</span></div><div class="truth-post-list"><div class="person-news-state">최신 게시물을 불러오는 중…</div></div></section>`:""}<section class="person-news" data-query="${esc(overseasName)}" data-source="global"><div class="person-news-head"><b>최근 기사 [해외]</b><span class="person-news-actions"><a class="person-news-search-link" href="https://news.google.com/search?q=${encodeURIComponent(overseasName)}&hl=en-US&gl=US&ceid=US%3Aen" target="_blank" rel="noopener noreferrer">전체 기사 보기 ↗</a><span>최신순</span></span></div><div class="person-news-list"><div class="person-news-state">화면에 표시되면 최신 기사를 불러옵니다.</div></div><button type="button" class="person-news-more" data-news-more disabled>기사 10개 더 보기</button></section><section class="person-news" data-query="${esc(p.name)}" data-source="naver"><div class="person-news-head"><b>최근 기사 [NAVER]</b><span class="person-news-actions"><a class="person-news-search-link" href="https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(p.name)}&sort=1" target="_blank" rel="noopener noreferrer">전체 기사 보기 ↗</a><span>최신순</span></span></div><div class="person-news-list"><div class="person-news-state">화면에 표시되면 최신 기사를 불러옵니다.</div></div><button type="button" class="person-news-more" data-news-more disabled>기사 10개 더 보기</button></section></article>`;
     }).join("")||'<div class="empty">검색 조건에 맞는 인물이 없습니다.</div>';
     root.querySelectorAll("[data-delete]").forEach(button => {
       button.hidden = !deleteMode;
@@ -674,6 +691,7 @@ $("themeBtn").addEventListener("click", () => {
       country:String(data.get("country")||"").trim(),
       role:String(data.get("role")||"").trim(),
       group:String(data.get("group")||"정책·거시"),
+      influenceGrade:String(data.get("influenceGrade")||"B").trim(),
       impact:String(data.get("impact")||"").trim(),
       watch:String(data.get("watch")||"").trim(),
       query:String(data.get("query")||"").trim()
@@ -687,6 +705,18 @@ $("themeBtn").addEventListener("click", () => {
     document.querySelectorAll(".people-filter").forEach(x => x.classList.toggle("active", x.dataset.pfilter === "all"));
     filter = "all";
     render();
+  });
+  if (resetPeopleBtn) resetPeopleBtn.addEventListener("click", () => {
+    if (!confirm("인물 목록을 처음 설정된 29명으로 초기화할까요? 추가한 인물과 삭제·복구 대기 중인 내역은 모두 사라집니다.")) return;
+    people.splice(0, people.length, ...INITIAL_PEOPLE.map(p => ({...p})));
+    deletedPeople = []; savedOrder = []; deleteMode = false; filter = "all";
+    if (search) search.value = "";
+    if (toggleDeleteBtn) { toggleDeleteBtn.classList.remove("active"); toggleDeleteBtn.setAttribute("aria-pressed", "false"); toggleDeleteBtn.textContent = "－ 인물 삭제"; }
+    document.querySelectorAll(".people-filter").forEach(x => x.classList.toggle("active", x.dataset.pfilter === "all"));
+    if (form) { form.reset(); form.hidden = true; }
+    if (cancelBtn) cancelBtn.hidden = true;
+    if (addBtn) addBtn.hidden = false;
+    savePeople(); render(); renderDeleted();
   });
   render();
   renderDeleted();
@@ -716,181 +746,3 @@ search.addEventListener('input',update);
 buttons.forEach(btn=>btn.addEventListener('click',()=>{
  active=btn.dataset.filter;buttons.forEach(b=>b.classList.toggle('history-active',b===btn));update();
 }));
-
-
-
-/* ===== 글로벌 시각 항목 추가·삭제·복원 ===== */
-(() => {
-  const root = document.querySelector(".global-perspective-panel");
-  if (!root) return;
-  const storageKey = "marketInsightGlobalItems_v1";
-  const addBtn = document.getElementById("addGlobalItemBtn");
-  const deleteBtn = document.getElementById("toggleDeleteGlobalBtn");
-  const cancelBtn = document.getElementById("cancelGlobalItemBtn");
-  const form = document.getElementById("globalItemForm");
-  const deletedList = document.getElementById("deletedGlobalItems");
-  const groupsContainer = root.querySelector(".global-perspective-groups");
-  let deleteMode = false, deleted = [], added = [];
-  try {
-    const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
-    deleted = Array.isArray(saved.deleted) ? saved.deleted : [];
-    added = Array.isArray(saved.added) ? saved.added : [];
-    // 이전 버전의 카드 단위 저장값은 그룹으로 묶어 호환한다.
-    const legacy = added.filter(x => !x.type || x.type !== "group");
-    added = added.filter(x => x.type === "group");
-    legacy.forEach((x, i) => {
-      const market = x.market || "추가 항목";
-      let group = added.find(g => g.market === market);
-      if (!group) { group = {type:"group", id:"legacy-" + i, market, cards:[]}; added.push(group); }
-      group.cards.push(x.html);
-    });
-  } catch (_) {}
-  const save = () => localStorage.setItem(storageKey, JSON.stringify({deleted, added}));
-  const groups = () => [...root.querySelectorAll(".global-market-group")];
-  const marketName = group => group.querySelector(".global-market-heading h2")?.textContent.trim() || "추가 항목";
-  const createPeerGroup = (name, id) => {
-    const group = document.createElement("section");
-    group.className = "global-market-group card custom-global-group";
-    if (id) group.dataset.groupId = id;
-    const heading = document.createElement("div"); heading.className = "global-market-heading";
-    heading.innerHTML = '<span class="eyebrow">GLOBAL MARKET WATCH · CUSTOM</span>';
-    const h2 = document.createElement("h2"); h2.textContent = name; heading.appendChild(h2);
-    const grid = document.createElement("div"); grid.className = "global-market-grid";
-    group.append(heading, grid); groupsContainer.appendChild(group);
-    return group;
-  };
-  const providers = [
-    {name:"Google", source:"global", domain:"news.google.com"},
-    {name:"Goldman Sachs", source:"official-goldman", domain:"goldmansachs.com"},
-    {name:"Morgan Stanley", source:"official-morgan", domain:"morganstanley.com"}
-  ];
-  const makeCard = (query, provider, id) => {
-    const card = document.createElement("section");
-    card.className = "person-news global-news-card";
-    card.dataset.query = query; card.dataset.source = provider.source;
-    card.dataset.customId = id;
-    const link = provider.source === "global"
-      ? "https://news.google.com/search?q=" + encodeURIComponent(query) + "&hl=en-US&gl=US&ceid=US:en"
-      : provider.source === "official-goldman"
-        ? "https://www.goldmansachs.com/search?query=" + encodeURIComponent(query)
-        : "https://www.morganstanley.com/search?text=" + encodeURIComponent(query);
-    card.innerHTML = `<div class="person-news-head"><b></b><span class="person-news-actions"><a class="person-news-search-link" href="${link}" target="_blank" rel="noopener noreferrer">전체 기사 보기 ↗</a><span>최신순</span></span></div><div class="person-news-list"><div class="person-news-state">화면에 표시되면 검색 결과를 불러옵니다.</div></div><button type="button" class="person-news-more" data-news-more disabled>기사 10개 더 보기</button>`;
-    const b = card.querySelector(".person-news-head>b"); b.textContent = provider.name;
-    if (provider.domain !== "news.google.com") {
-      b.classList.add("provider-brand"); const img = document.createElement("img");
-      img.src = "https://www.google.com/s2/favicons?domain=" + provider.domain + "&sz=64";
-      img.alt = ""; img.loading = "lazy"; b.prepend(img);
-    }
-    return card;
-  };
-  async function loadAddedCard(card) {
-    if (!card || card.dataset.loaded === "1") return;
-    card.dataset.loaded = "1";
-    const list = card.querySelector(".person-news-list"), more = card.querySelector("[data-news-more]");
-    try {
-      const response = await fetch("https://macro.mcraft-tiger-574.workers.dev/api/person-news?q=" +
-        encodeURIComponent(card.dataset.query || "") + "&source=" + encodeURIComponent(card.dataset.source || "global") + "&limit=10&offset=0");
-      const data = await response.json(); if (!response.ok) throw new Error(data.error || "검색 요청 실패");
-      const items = Array.isArray(data.items) ? data.items : [];
-      list.innerHTML = items.map((item, i) =>
-        `<a class="person-news-item" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer"><span class="person-news-number">${i+1}</span><span class="person-news-copy"><b>${esc(item.title)}</b><small>${esc(item.source || data.provider || "검색 결과")}</small></span><span class="person-news-arrow">↗</span></a>`
-      ).join("") || `<div class="person-news-state">${esc(data.error || "검색 결과가 없습니다.")}</div>`;
-      if (more) more.hidden = true;
-    } catch (error) { list.innerHTML = `<div class="person-news-state">검색 결과를 불러오지 못했습니다: ${esc(error.message || error)}</div>`; card.dataset.loaded = "0"; }
-  }
-  const addedNewsObserver = "IntersectionObserver" in window
-    ? new IntersectionObserver(entries => entries.forEach(entry => {
-        if (entry.isIntersecting) { loadAddedCard(entry.target); addedNewsObserver.unobserve(entry.target); }
-      }), {rootMargin:"220px 0px"})
-    : null;
-  const observeAddedCard = card => {
-    if (!card) return;
-    if (addedNewsObserver) addedNewsObserver.observe(card);
-    else loadAddedCard(card);
-  };
-  const renderGroup = (record, shouldLoad = true) => {
-    const group = createPeerGroup(record.market, record.id);
-    const grid = group.querySelector(".global-market-grid");
-    const cards = record.cards?.length ? record.cards : providers.map((p, i) => makeCard(record.market, p, record.id + "-" + i).outerHTML);
-    cards.forEach((html, i) => {
-      const holder = document.createElement("div"); holder.innerHTML = html;
-      const card = holder.firstElementChild; if (!card) return;
-      card.dataset.customId = record.id + "-" + i; grid.appendChild(card);
-      if (shouldLoad) observeAddedCard(card);
-    });
-    return group;
-  };
-  const ensureDeleteControls = () => {
-    root.querySelectorAll(".global-market-group.custom-global-group").forEach(group => {
-      let btn = group.querySelector(":scope > .global-group-delete");
-      if (deleteMode && !btn) {
-        btn = document.createElement("button"); btn.type = "button"; btn.className = "global-group-delete";
-        btn.textContent = "삭제";
-        btn.addEventListener("click", () => {
-          const id = group.dataset.groupId;
-          const record = added.find(x => x.id === id);
-          deleted.push({type:"group", id, market:marketName(group), html:group.outerHTML, deletedAt:Date.now()});
-          added = added.filter(x => x.id !== id); save(); group.remove(); renderDeleted();
-        });
-        group.appendChild(btn);
-      } else if (!deleteMode && btn) btn.remove();
-    });
-  };
-  function renderDeleted() {
-    deletedList.innerHTML = "";
-    if (!deleted.length) { deletedList.innerHTML = "<p>복원할 항목이 없습니다.</p>"; return; }
-    deleted.forEach((item, index) => {
-      const row = document.createElement("div"); row.className = "global-deleted-row";
-      const label = document.createElement("span"); label.textContent = item.market || "추가 항목";
-      const restore = document.createElement("button"); restore.type = "button"; restore.className = "people-manage-btn"; restore.textContent = "복원";
-      restore.addEventListener("click", () => {
-        const holder = document.createElement("div"); holder.innerHTML = item.html || "";
-        const restored = holder.firstElementChild;
-        if (restored) {
-          restored.querySelector(":scope > .global-group-delete")?.remove();
-          restored.classList.add("custom-global-group"); restored.dataset.groupId = item.id || ("restored-" + Date.now().toString(36));
-          groupsContainer.appendChild(restored);
-          restored.querySelectorAll(".global-news-card").forEach(loadAddedCard);
-          const cards = [...restored.querySelectorAll(".global-news-card")].map(c => c.outerHTML);
-          added.push({type:"group", id:restored.dataset.groupId, market:item.market || marketName(restored), cards});
-          if (deleteMode) ensureDeleteControls();
-        }
-        deleted.splice(index, 1); save(); renderDeleted();
-      });
-      const permanent = document.createElement("button"); permanent.type = "button"; permanent.className = "people-manage-btn danger"; permanent.textContent = "삭제";
-      permanent.addEventListener("click", () => { deleted.splice(index, 1); save(); renderDeleted(); });
-      const actions = document.createElement("div"); actions.className = "global-deleted-actions";
-      actions.append(restore, permanent);
-      row.append(label, actions); deletedList.appendChild(row);
-    });
-  }
-  // Render persisted custom groups as complete, three-card sets.
-  added.forEach(record => renderGroup(record));
-  document.querySelectorAll(".main-tab[data-panel=\"global-perspective\"]").forEach(button => {
-    button.addEventListener("click", () => {
-      root.querySelectorAll(".custom-global-group .global-news-card").forEach(observeAddedCard);
-    });
-  });
-  addBtn?.addEventListener("click", () => {
-    form.hidden = false; cancelBtn.hidden = false; addBtn.hidden = true;
-    form.scrollIntoView({behavior:"smooth", block:"center"});
-    form.querySelector('input[name="market"]')?.focus();
-  });
-  cancelBtn?.addEventListener("click", () => { form.reset(); form.hidden = true; cancelBtn.hidden = true; addBtn.hidden = false; });
-  deleteBtn?.addEventListener("click", () => {
-    deleteMode = !deleteMode; deleteBtn.classList.toggle("active", deleteMode);
-    deleteBtn.setAttribute("aria-pressed", String(deleteMode));
-    deleteBtn.textContent = deleteMode ? "삭제 선택 종료" : "－ 항목 삭제"; ensureDeleteControls();
-  });
-  form?.addEventListener("submit", event => {
-    event.preventDefault(); const market = String(new FormData(form).get("market") || "").trim();
-    if (!market) return;
-    const id = "custom-" + Date.now().toString(36);
-    const record = {type:"group", id, market, cards:providers.map((p, i) => makeCard(market, p, id + "-" + i).outerHTML)};
-    added.push(record); const group = renderGroup(record); save();
-    form.reset(); form.hidden = true; cancelBtn.hidden = true; addBtn.hidden = false;
-    ensureDeleteControls(); group.scrollIntoView({behavior:"smooth", block:"start"});
-  });
-  renderDeleted(); ensureDeleteControls();
-})();
-

@@ -7,7 +7,7 @@
 <meta content="#f4f6fa" name="theme-color"/>
 <link href="./Stock_macro.png" rel="apple-touch-icon"/>
 <title>MARKET INSIGHT DAILY</title>
-<link href="style.css?v=12" rel="stylesheet"/>
+<link href="style.css?v=35" rel="stylesheet"/>
 <script>try{if(localStorage.getItem("theme_v1")==="dark"){document.documentElement.classList.add("dark");document.querySelector('meta[name="theme-color"]').content="#151a22"}}catch(e){}</script>
 </head>
 <body>
@@ -34,6 +34,7 @@
 <p>정책·금리·무역·AI 투자·기업 전략과 관련된 주요 인물을 추적합니다. 인물의 발언 자체보다 <b>정책 변화 → 산업·기업 영향 → 실제 시장 반응</b>의 연결을 확인하세요.</p>
 <div class="people-caveat">※ 인물별 해외 뉴스와 NAVER 뉴스 검색 결과를 각각 표시합니다. 각 목록은 처음 3개를 보여주며 펼침 버튼으로 10개씩 추가할 수 있습니다. 영향력 등급은 시장 파급 범위에 대한 참고 분류입니다.</div>
 </div>
+<div class="people-quick-nav" id="peopleQuickNav" aria-label="인물 바로가기"></div>
 <div class="people-tools">
 <input aria-label="인물 검색" id="peopleSearch" placeholder="인물·국가·분야 검색" type="search"/>
 <div class="people-filters">
@@ -54,6 +55,7 @@
 <div class="people-management people-management-bottom">
 <button class="people-manage-btn primary" id="addPersonBtn" type="button">＋ 인물 추가</button>
 <button aria-pressed="false" class="people-manage-btn danger" id="toggleDeletePeopleBtn" type="button">－ 인물 삭제</button>
+<button class="people-manage-btn" id="resetPeopleBtn" type="button">↺ 인물 초기화</button>
 <button class="people-manage-btn" hidden="" id="cancelPersonBtn" type="button">닫기</button>
 </div>
 </div>
@@ -68,7 +70,8 @@
 <label>국가<input name="country" placeholder="예: 미국" required=""/></label>
 <label>직책<input name="role" placeholder="예: 연준 의장" required=""/></label>
 <label>분야<select name="group"><option>정책·거시</option><option>중앙은행</option><option>투자·자금</option><option>기술·기업</option></select></label>
-<label class="wide">시장 영향<input name="impact" placeholder="시장에 미치는 영향" required=""/></label>
+<label class="wide">시장 영향<select name="influenceGrade" required=""><option value="S">S</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></label>
+<label class="wide">인물 영향력<input name="impact" placeholder="예: 금리 결정과 통화정책 발언으로 글로벌 증시에 영향을 줍니다."/></label>
 <label class="wide">체크할 뉴스<input name="watch" placeholder="주요 발언·정책·실적 등" required=""/></label>
 <label class="wide">뉴스 검색용 영문 이름<input name="query" placeholder="예: Jerome Powell" required=""/></label>
 </div>
@@ -214,6 +217,7 @@
 <div class="global-management-actions">
 <button class="people-manage-btn primary" id="addGlobalItemBtn" type="button">＋ 항목 추가</button>
 <button aria-pressed="false" class="people-manage-btn danger" id="toggleDeleteGlobalBtn" type="button">－ 항목 삭제</button>
+<button class="people-manage-btn" id="resetGlobalItemsBtn" type="button">↺ 초기화</button>
 <button class="people-manage-btn" hidden="" id="cancelGlobalItemBtn" type="button">닫기</button>
 </div>
 <form class="global-item-form" hidden="" id="globalItemForm">
@@ -261,5 +265,6 @@
 </main>
 </div>
 <div class="toast" id="toast" role="status"></div>
-<script src="app.js?v=11"></script>
+<script src="app.js?v=35"></script>
+<script src="global-items.js?v=35"></script>
 </body></html>
